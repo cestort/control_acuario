@@ -1,10 +1,18 @@
 from django import forms
-from .models import Paramatros_diarios
+from .models import Parametros_diarios
 
-class ParamatrosDiariosForm(forms.ModelForm):
+class ParametrosDiariosForm(forms.ModelForm):
     class Meta:
-        model = Paramatros_diarios
+        model = Parametros_diarios
         fields = ['fecha', 'salinidad', 'nitrato', 'fosfato', 'nitrito', 'amonio', 'kh', 'calcio', 'magnesio']
         widgets = {
-            'fecha': forms.DateInput(attrs={'type': 'date'}),  # Widget para la selección de fecha
+            'fecha': forms.DateInput(attrs={'type': 'date'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        # Obtenemos el usuario del kwargs y lo eliminamos para no interferir con el __init__ original
+        user = kwargs.pop('user', None)
+        super(ParametrosDiariosForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['usuario'].initial = user
+            self.fields['usuario'].widget.attrs['readonly'] = True

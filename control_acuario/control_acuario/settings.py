@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'control_diario',
+    'login_landing',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+LOGIN_REDIRECT_URL = '/control_diario/formulario/'  # Redirige a esta página después del login
+LOGOUT_REDIRECT_URL = '/'  # Redirige a la página de inicio después del logout
 
 
 # Password validation

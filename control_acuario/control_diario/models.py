@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User 
 
-class Paramatros_diarios(models.Model):
+class Parametros_diarios(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Relaciona cada entrada con un usuario
     fecha = models.DateField()  # Campo para la fecha
     hora = models.TimeField(auto_now_add=True) #campo de hora autocompletante
     salinidad = models.FloatField()  # Salinidad
@@ -14,3 +16,4 @@ class Paramatros_diarios(models.Model):
 
     def __str__(self):
         return f"Parámetros del {self.fecha}"
+

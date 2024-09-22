@@ -15,17 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpResponse
-
-# Una vista simple para la página principal (solo como ejemplo)
-def home_view(request):
-    return HttpResponse('<h1>Bienvenido a Control de Acuario</h1>')
+from login_landing.views import landingpage_view  # Asegúrate de importar la vista
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('control_diario/', include('control_diario.urls')),  # Cambia según tu aplicación
-    path('', home_view),  # Agrega una vista para la URL raíz
+    path('control_diario/', include(('control_diario.urls', 'control_diario'), namespace='control_diario')),
+    path('login_landing/', include(('login_landing.urls', 'login_landing'), namespace='login_landing')),
+    path('', landingpage_view, name='landingpage'),
 ]
+
